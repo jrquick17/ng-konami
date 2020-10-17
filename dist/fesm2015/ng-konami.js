@@ -17,7 +17,7 @@ class NgKonamiService {
         for (let i = 0; i < this.konamiCodes.length; i++) {
             const konamiCode = this.konamiCodes[i];
             const codeCount = konamiCode.code.length;
-            const requiredKey = konamiCode.code[konamiCode.streak];
+            const requiredKey = konamiCode.code[konamiCode.streak].trim();
             if (requiredKey.toLowerCase() === event.key.toLowerCase() || requiredKey === event.code) {
                 konamiCode.streak++;
                 if (codeCount === konamiCode.streak) {
@@ -36,6 +36,9 @@ class NgKonamiService {
         konamiCode.code = code.split(',');
         konamiCode.callback = callback;
         this.konamiCodes.push(konamiCode);
+    }
+    removeAll() {
+        this.konamiCodes = [];
     }
 }
 NgKonamiService.decorators = [

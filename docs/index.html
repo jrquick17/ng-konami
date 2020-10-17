@@ -46,7 +46,7 @@
 <li><a href="#deploy">Deploy</a></li>
 </ul>
 <h2 id="about">About</h2>
-<p>A light weight Angular 2+ service for checking internet speed  </p>
+<p>A light-weight service for handling secret codes such as <a href="https://en.wikipedia.org/wiki/Konami_Code#Variations_of_the_Konami_Code">The Konami Code</a> within any Angular 2+ app.</p>
 <ul>
 <li>Try out <a href="https://ng-konami.jrquick.com">the demo</a> to see it in action!</li>
 <li>Visit <a href="https://jrquick.com">my website</a> for other cool projects!</li>
@@ -68,83 +68,41 @@
   })
   export class AppModule {}</code></pre></div></li>
 </ul>
-<h2 id="usage">Usage</h2>
-<h3 id="check-internet-speed">Check Internet Speed</h3>
-<ul>
-<li>Checkout the demo and it&#39;s code for more examples.</li>
-</ul>
-<div><pre class="line-numbers"><code class="language-typescript">import {SpeedTestService} from &#39;ng-konami&#39;;
+<h3 id="listen-for-keyboard-events">Listen for Keyboard Events</h3>
+<div><pre class="line-numbers"><code class="language-none">```
+constructor(
+  private service:NgKonamiService
+) {
 
-&#64;Injectable()
-export class TechCheckService {
-  constructor(
-    private speedTestService:SpeedTestService
-  ) {
-    this.speedTestService.getMbps().subscribe(
-      (speed) =&gt; {
-        console.log(&#39;Your speed is &#39; + speed);
-      }
-    );
-  }
-}</code></pre></div><h3 id="check-internet-speed-w-custom-settings">Check Internet Speed w/ Custom Settings</h3>
-<div><pre class="line-numbers"><code class="language-typescript">import {SpeedTestService} from &#39;ng-konami&#39;;
+}
 
-&#64;Injectable()
-export class TechCheckService {
-  constructor(
-    private speedTestService:SpeedTestService
-  ) {
-    this.speedTestService.getMbps(
-      {
-        iterations: 10,
-        file: {
-          path: &#39;my-custom-image.png&#39;,
-          size: 2048
-        },
-        retryDelay: 1500,
-      }
-    ).subscribe(
-      (speed) =&gt; {
-        console.log(&#39;Your speed is &#39; + speed);
-      }
-    );
-  }
-}</code></pre></div><h3 id="check-if-online">Check If Online</h3>
-<div><pre class="line-numbers"><code class="language-typescript">import {SpeedTestService} from &#39;ng-konami&#39;;
+&#64;HostListener(&#39;window:keyup&#39;, [&#39;$event&#39;])
+keyEvent(event:KeyboardEvent) {
+  this.events.push(event);
 
-&#64;Injectable()
-export class TechCheckService {
-  constructor(
-    private speedTestService:SpeedTestService
-  ) {
-    this.speedTestService.isOnline().subscribe(
-      (isOnline) =&gt; {
-        if (isOnline === false) {
-          console.log(&#39;Network unavailable.&#39;);
-        }
-      }
-    );
-  }
-}</code></pre></div><h2 id="documentation">Documentation</h2>
+  this.service.listen(event);
+}
+```</code></pre></div><h3 id="register-secret-code">Register Secret Code</h3>
+<div><pre class="line-numbers"><code class="language-none">```
+constructor(
+  private service:NgKonamiService
+) {
+  this.service.register(
+    &#39;ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a&#39;,
+    () =&gt; {
+      // do something
+    }
+  );
+}
+```</code></pre></div><h2 id="documentation">Documentation</h2>
 <h3 id="functions">Functions</h3>
 <ul>
-<li><code>getBps()</code> - Get the current internet speed in BPS (bytes per second).</li>
-<li><code>getKbps()</code> - Get the current internet speed in KBPS (kilobytes per second).</li>
-<li><code>getMbps()</code> - Get the current internet speed in MBPS (megabytes per second).</li>
-<li><code>isOnline()</code> - Check if the network is available.</li>
+<li><code>register()</code> - Register a particular sequence of keyboard characters (in CSV format).<ul>
+<li>Keyboard characters can be differentiated by <a href="https://www.w3schools.com/jsref/obj_keyboardevent.asp">the KeyboardEvent&#39;s key or code</a></li>
 </ul>
-<h3 id="settings">Settings</h3>
-<ul>
-<li><code>file</code> - see <a href="#file">File Settings (below)</a></li>
-<li><code>iterations</code> - (default: 3) The number of speed readings to take for the average. 
-Increase iterations the more accurate results, decrease iterations for faster results.</li>
-<li><code>retryDelay</code> - (default: 500) The number of milliseconds to wait before the next iteration after a network error</li>
-</ul>
-<h4 id="file">File</h4>
-<ul>
-<li><code>path</code> - (default: ~5mb image stored on GitHub) The URL where to download an image for determining internet speed</li>
-<li><code>size</code> - (default: ~5mb) The size of the image at the path (in bytes)</li>
-<li><code>shouldBustCache</code> (default: true) Append GET variable to bust browser cache</li>
+</li>
+<li><code>listen()</code> - Pass the keyboard events through to listen for the secret code </li>
+<li><code>removeAll()</code> - Remove all registered codes</li>
 </ul>
 <h2 id="contributing">Contributing</h2>
 <h3 id="thanks">Thanks</h3>

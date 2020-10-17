@@ -22,7 +22,7 @@
             for (var i = 0; i < this.konamiCodes.length; i++) {
                 var konamiCode = this.konamiCodes[i];
                 var codeCount = konamiCode.code.length;
-                var requiredKey = konamiCode.code[konamiCode.streak];
+                var requiredKey = konamiCode.code[konamiCode.streak].trim();
                 if (requiredKey.toLowerCase() === event.key.toLowerCase() || requiredKey === event.code) {
                     konamiCode.streak++;
                     if (codeCount === konamiCode.streak) {
@@ -41,6 +41,9 @@
             konamiCode.code = code.split(',');
             konamiCode.callback = callback;
             this.konamiCodes.push(konamiCode);
+        };
+        NgKonamiService.prototype.removeAll = function () {
+            this.konamiCodes = [];
         };
         return NgKonamiService;
     }());

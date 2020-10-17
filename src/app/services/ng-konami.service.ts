@@ -44,4 +44,8 @@ export class NgKonamiService {
 
     this.konamiCodes.push(konamiCode);
   }
+
+  removeAll():void {
+    this.konamiCodes = [];
+  }
 }

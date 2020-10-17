@@ -88,6 +88,7 @@ npm install ng-konami --save
 * `register()` - Register a particular sequence of keyboard characters (in CSV format).
     * Keyboard characters can be differentiated by [the KeyboardEvent's key or code](https://www.w3schools.com/jsref/obj_keyboardevent.asp)
 * `listen()` - Pass the keyboard events through to listen for the secret code 
+* `removeAll()` - Remove all registered codes
 
 ## Contributing ##
 

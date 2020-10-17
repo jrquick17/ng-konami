@@ -18,7 +18,7 @@
 
 ## About ## 
 
-A light weight Angular 2+ service for checking internet speed  
+A light-weight service for handling secret codes such as [The Konami Code](https://en.wikipedia.org/wiki/Konami_Code#Variations_of_the_Konami_Code) within any Angular 2+ app.
 
 * Try out [the demo](https://ng-konami.jrquick.com) to see it in action!
 * Visit [my website](https://jrquick.com) for other cool projects!
@@ -48,100 +48,47 @@ npm install ng-konami --save
     })
     export class AppModule {}
     ```
-  
-## Usage ##
 
-### Check Internet Speed ###
+### Listen for Keyboard Events
 
-* Checkout the demo and it's code for more examples.
+    ```
+    constructor(
+      private service:NgKonamiService
+    ) {
+      
+    }
+    
+    @HostListener('window:keyup', ['$event'])
+    keyEvent(event:KeyboardEvent) {
+      this.events.push(event);
+    
+      this.service.listen(event);
+    }
+    ```
 
-```typescript
-import {SpeedTestService} from 'ng-konami';
+### Register Secret Code
 
-@Injectable()
-export class TechCheckService {
-  constructor(
-    private speedTestService:SpeedTestService
-  ) {
-    this.speedTestService.getMbps().subscribe(
-      (speed) => {
-        console.log('Your speed is ' + speed);
-      }
-    );
-  }
-}
-```
-
-### Check Internet Speed w/ Custom Settings
-
-```typescript
-import {SpeedTestService} from 'ng-konami';
-
-@Injectable()
-export class TechCheckService {
-  constructor(
-    private speedTestService:SpeedTestService
-  ) {
-    this.speedTestService.getMbps(
-      {
-        iterations: 10,
-        file: {
-          path: 'my-custom-image.png',
-          size: 2048
-        },
-        retryDelay: 1500,
-      }
-    ).subscribe(
-      (speed) => {
-        console.log('Your speed is ' + speed);
-      }
-    );
-  }
-}
-```
-
-### Check If Online ###
-
-```typescript
-import {SpeedTestService} from 'ng-konami';
-
-@Injectable()
-export class TechCheckService {
-  constructor(
-    private speedTestService:SpeedTestService
-  ) {
-    this.speedTestService.isOnline().subscribe(
-      (isOnline) => {
-        if (isOnline === false) {
-          console.log('Network unavailable.');
+    ```
+    constructor(
+      private service:NgKonamiService
+    ) {
+      this.service.register(
+        'ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a',
+        () => {
+          // do something
         }
-      }
-    );
-  }
-}
-```
+      );
+    }
+    ```
 
 ## Documentation ##
 
 ### Functions ###
 
-* `getBps()` - Get the current internet speed in BPS (bytes per second).
-* `getKbps()` - Get the current internet speed in KBPS (kilobytes per second).
-* `getMbps()` - Get the current internet speed in MBPS (megabytes per second).
-* `isOnline()` - Check if the network is available.
-
-### Settings ###
-
-* `file` - see [File Settings (below)](#file)
-* `iterations` - (default: 3) The number of speed readings to take for the average. 
-Increase iterations the more accurate results, decrease iterations for faster results.
-* `retryDelay` - (default: 500) The number of milliseconds to wait before the next iteration after a network error
-
-#### File ####
-
-* `path` - (default: ~5mb image stored on GitHub) The URL where to download an image for determining internet speed
-* `size` - (default: ~5mb) The size of the image at the path (in bytes)
-* `shouldBustCache` (default: true) Append GET variable to bust browser cache
+* `register()` - Register a particular sequence of keyboard characters (in CSV format).
+    * Keyboard characters can be differentiated by [the KeyboardEvent's key or code](https://www.w3schools.com/jsref/obj_keyboardevent.asp)
+* `listen()` - Pass the keyboard events through to listen for the secret code 
+* `removeAll()` - Remove all registered codes
 
 ## Contributing ##
 

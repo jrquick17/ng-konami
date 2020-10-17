@@ -5,4 +5,5 @@ export declare class NgKonamiService {
     constructor();
     listen(event: KeyboardEvent): void;
     register(code: string, callback: Function): void;
+    removeAll(): void;
 }
