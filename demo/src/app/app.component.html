@@ -1,0 +1,53 @@
+<p>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span (click)="goToGitHub()" style="cursor: pointer;">ng-konami</span>
+
+      <button mat-icon-button
+              style="margin-left: 10px;"
+              aria-label="Go to GitHub"
+              (click)="goToGitHub()">
+        <mat-icon>home</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</p>
+
+<mat-card style="margin: 20px; padding: 20px;">
+  <mat-card-subtitle style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+    Enter the Secret Code
+  </mat-card-subtitle>
+
+  <mat-card-content *ngIf="!showGif">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Secret Code</mat-label>
+
+      <input matInput
+             style="width:100%;"
+             type="text"
+             [(ngModel)]="code"/>
+    </mat-form-field>
+
+    <mat-list dense>
+      <mat-list-item *ngFor="let event of events">{{ event.code }}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+  <div *ngIf="showGif"
+       style="
+         width: 100%;
+         position: absolute;
+         top: 0;
+         left: 0;
+       ">
+    <button mat-raised-button
+            style="margin-left: auto; margin-right: auto;"
+            (click)="restart()">
+      Restart
+    </button>
+
+    <img style="width: 100%;"
+         alt="Secret Code Complete!"
+         src="assets/thumbs-up.webp"/>
+  </div>
+</mat-card>

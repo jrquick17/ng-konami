@@ -1,0 +1,39 @@
+{
+  "name": "ng-konami",
+  "version": "0.0.1",
+  "readme": "README.md",
+  "homepage": "https://ng-konami.jrquick.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrquick17/ng-konami"
+  },
+  "author": {
+    "name": "Jeremy Quick",
+    "email": "me@jrquick.com",
+    "url": "https://jrquick.com"
+  },
+  "keywords": [
+    "angular",
+    "internet-speed",
+    "speed-test"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jrquick17/ng-konami/issues"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "peerDependencies": {},
+  "main": "bundles/ng-konami.umd.js",
+  "module": "fesm2015/ng-konami.js",
+  "es2015": "fesm2015/ng-konami.js",
+  "esm2015": "esm2015/ng-konami.js",
+  "fesm2015": "fesm2015/ng-konami.js",
+  "typings": "ng-konami.d.ts",
+  "metadata": "ng-konami.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}
