@@ -42,4 +42,15 @@ export class AppComponent {
   public restart():void {
     window.location.reload();
   }
+
+  public updateCode(code?:string):void {
+    this.service.removeAll();
+
+    this.service.register(
+      code,
+      () => {
+        this.showGif = true;
+      }
+    );
+  }
 }

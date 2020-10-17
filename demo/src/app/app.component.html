@@ -25,7 +25,8 @@
       <input matInput
              style="width:100%;"
              type="text"
-             [(ngModel)]="code"/>
+             [(ngModel)]="code"
+             (ngModelChange)="updateCode()"/>
     </mat-form-field>
 
     <mat-list dense>
